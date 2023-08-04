@@ -9,7 +9,6 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    
     steps:
 
       - name: Checkout the code
@@ -23,3 +22,16 @@ jobs:
         with:
           name: index2.html
           path: app/build/reports/lint-results-debug.html
+
+  unit-test:
+    need: [lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit_test_report
+          path: app/build/reports/tests/testDebugUnitTest/
